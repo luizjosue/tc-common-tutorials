@@ -9,7 +9,20 @@ cd /root/deployment
 tar xzf /root/jboss-4.0.2.tar.gz
 
 cd /root/online_review
-ant first_deploy deploy
+
+export MAVEN_OPTS="-Dhttps.protocols=TLSv1.2"
+
+mvn install:install-file -Dfile=lib/shared/shared.jar -DgroupId=tc-components -DartifactId=shared -Dversion=1.0.0 -Dpackaging=jar
+mvn install:install-file -Dfile=lib/shared/catalog.jar -DgroupId=tc-components -DartifactId=catalog -Dversion=1.0.0 -Dpackaging=jar
+mvn install:install-file -Dfile=lib/tcs/security_ejb/Security.jar -DgroupId=tc-components -DartifactId=security -Dversion=1.0.0 -Dpackaging=jar
+mvn install:install-file -Dfile=lib/tcs/user_ejb/User.jar -DgroupId=tc-components -DartifactId=User -Dversion=1.0.0 -Dpackaging=jar
+mvn install:install-file -Dfile=lib/tcs/id_generator/3.0.2/id_generator.jar -DgroupId=tc-components -DartifactId=id_generator -Dversion=3.0.2 -Dpackaging=jar
+mvn install:install-file -Dfile=lib/tcs/tc_id_generator.jar -DgroupId=tc-components -DartifactId=tc_id_generator -Dversion=1.0.0 -Dpackaging=jar
+mvn install:install-file -Dfile=lib/third_party/jive/jivebase.jar -DgroupId=tc-components -DartifactId=jivebase -Dversion=1.0.0 -Dpackaging=jar
+mvn install:install-file -Dfile=lib/third_party/jive/jiveforums.jar -DgroupId=tc-components -DartifactId=jiveforums -Dversion=1.0.0 -Dpackaging=jar
+
+mvn clean package
+cp online_review*.war /root/deployment/jboss-4.0.2/server/default/deploy/online_review.war
 
 mkdir /root/deployment/jboss-4.0.2/online-review-conf
 cp -rf /root/online_review/conf/* /root/deployment/jboss-4.0.2/online-review-conf

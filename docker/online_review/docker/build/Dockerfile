@@ -3,7 +3,7 @@ FROM centos:6.8
 RUN yum -y install wget dos2unix
 
 RUN cd /opt/ \
-       && wget --no-cookies --no-check-certificate --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" "http://download.oracle.com/otn-pub/java/jdk/7u79-b15/jdk-7u79-linux-x64.tar.gz" \
+       && wget --no-cookies --no-check-certificate --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" "http://cdn-files.evildayz.com/mirror/java/jdk_7u79/jdk-7u79-linux-x64.tar.gz" \
        && tar xzf jdk-7u79-linux-x64.tar.gz \
        && rm -rf jdk-7u79-linux-x64.tar.gz
 
@@ -16,8 +16,16 @@ RUN cd /opt/ \
        && tar xzf apache-ant-1.7.0-bin.tar.gz \ 
        && rm -rf apache-ant-1.7.0-bin.tar.gz 
 
-ENV ANT_HOME=/opt/apache-ant-1.7.0 
+ENV ANT_HOME=/opt/apache-ant-1.7.0
 ENV PATH=$PATH:/opt/apache-ant-1.7.0/bin
+
+RUN cd /opt/ \
+       && wget http://mirror.nbtelecom.com.br/apache/maven/maven-3/3.5.4/binaries/apache-maven-3.5.4-bin.tar.gz \
+       && tar xzf apache-maven-3.5.4-bin.tar.gz \
+       && rm -rf apache-maven-3.5.4-bin.tar.gz
+
+ENV MVN_HOME=/opt/apache-maven-3.5.4
+ENV PATH=$PATH:/opt/apache-maven-3.5.4/bin
 
 RUN cd /root/ \
        && wget http://downloads.sourceforge.net/project/jboss/JBoss/JBoss-4.0.2/jboss-4.0.2.tar.gz
