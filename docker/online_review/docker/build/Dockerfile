@@ -12,7 +12,7 @@ ENV JRE_HOME=/opt/jdk1.7.0_79/jre
 ENV PATH=$PATH:/opt/jdk1.7.0_79/bin:/opt/jdk1.7.0_79/jre/bin
 
 RUN cd /opt/ \
-       && wget https://archive.apache.org/dist/ant/binaries/apache-ant-1.7.0-bin.tar.gz \
+       && wget http://archive.apache.org/dist/ant/binaries/apache-ant-1.7.0-bin.tar.gz \
        && tar xzf apache-ant-1.7.0-bin.tar.gz \ 
        && rm -rf apache-ant-1.7.0-bin.tar.gz 
 

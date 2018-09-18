@@ -22,7 +22,15 @@ mvn install:install-file -Dfile=lib/third_party/jive/jivebase.jar -DgroupId=tc-c
 mvn install:install-file -Dfile=lib/third_party/jive/jiveforums.jar -DgroupId=tc-components -DartifactId=jiveforums -Dversion=1.0.0 -Dpackaging=jar
 
 mvn clean package
-cp online_review*.war /root/deployment/jboss-4.0.2/server/default/deploy/online_review.war
+
+mkdir -p /root/deployment/jboss-4.0.2/server/default/deploy/online_review.war 
+cp -rf /root/online_review/target/online_review.war/* /root/deployment/jboss-4.0.2/server/default/deploy/online_review.war/.
 
 mkdir /root/deployment/jboss-4.0.2/online-review-conf
 cp -rf /root/online_review/conf/* /root/deployment/jboss-4.0.2/online-review-conf
+cp -rf /root/online_review/jboss_files/lib/* /root/deployment/jboss-4.0.2/server/default/lib/.
+cp -rf /root/online_review/jboss_files/conf/* /root/deployment/jboss-4.0.2/server/default/conf/.
+cp -rf /root/online_review/jboss_files/deploy/* /root/deployment/jboss-4.0.2/server/default/deploy/.
+
+mkdir -p /root/deployment/jboss-4.0.2/server/default/deploy/static.ear/static.war
+cp -rf /root/online_review/web/* /root/deployment/jboss-4.0.2/server/default/deploy/static.ear/static.war/.
